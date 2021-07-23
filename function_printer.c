@@ -2,10 +2,11 @@
 #include <string.h>
 #include <stdlib.h>
 /* CHANGING CODE IN PROCESS... CAREFUL ON COMPILING IT */
-int skip;
-int q_skip;
-int f_check;
-int f_found;
+int skip = 0;
+int q_skip = 0;
+int f_check = 0;
+int f_found = 0;
+int comment = 0;
 int main(int argc, char *argv[])
 {
 	if(argc==2)
@@ -27,9 +28,22 @@ int main(int argc, char *argv[])
 				{
 					printf("%c", ch);
 				}
+				if(comment == 1)
+				{
+					if(ch == '\n')
+					{
+						comment = 0;
+					}
+					continue;
+				}
 				if( ch == '\\')
 				{
 					skip = 1;
+					continue;
+				}
+				else if(skip == 0 && f_found == 0 && ch == '#' && q_skip == 0)
+				{
+					comment = 1;
 					continue;
 				}
 				else
