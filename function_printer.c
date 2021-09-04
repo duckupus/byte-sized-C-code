@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-/* CHANGING CODE IN PROCESS... CAREFUL ON COMPILING IT */
 int skip = 0;
 int q_skip = 0;
 int f_check = 0;
 int f_found = 0;
 int comment = 0;
+int count = 0;
+int f_count = 0;
 int main(int argc, char *argv[])
 {
 	if(argc==2)
 	{
-		/*...changing code in progress...*/
 		FILE *filePointer;
 		char ch;
 		filePointer = fopen(argv[1], "r");
@@ -25,15 +25,16 @@ int main(int argc, char *argv[])
 			while ((ch = fgetc(filePointer)) != EOF)
 			{
 				if(f_found == 1)
+					count = 1;
+				if(count == 1 && f_found == 0)
 				{
-					printf("%c", ch);
+					count=0;
+					f_count++;
 				}
 				if(comment == 1)
 				{
 					if(ch == '\n')
-					{
 						comment = 0;
-					}
 					continue;
 				}
 				if( ch == '\\')
@@ -59,9 +60,7 @@ int main(int argc, char *argv[])
 					{
 						//checks if there is a single quote alr
 						if(q_skip == 2)
-						{
 							continue;
-						}
 						//checks if there is double quote found beforehand
 						else if(q_skip == 1)
 						{
@@ -79,13 +78,11 @@ int main(int argc, char *argv[])
 					{
 						//check if there is double quote alr
 						if(q_skip == 1)
-						{
 							continue;
-						}
 						//checks if single quote was found beforehand
 						else if(q_skip == 2)
 						{
-						q_skip = 0;
+							q_skip = 0;
 							continue;
 						}
 						//if not found
@@ -106,9 +103,7 @@ int main(int argc, char *argv[])
 								continue;
 							}
 							else
-							{
 								f_check = 0;
-							}
 						}
 						else if(f_check == 1)
 						{
@@ -146,7 +141,8 @@ int main(int argc, char *argv[])
 							f_check = 5;
 							continue;
 							}
-							else{f_check = 0;}
+							else
+								f_check = 0;
 						}
 						else if(f_check == 5)
 						{
@@ -155,7 +151,8 @@ int main(int argc, char *argv[])
 							f_check = 6;
 							continue;
 							}
-							else{f_check = 0;}
+							else
+								f_check = 0;
 						}
 						else if(f_check == 6)
 						{
@@ -164,7 +161,8 @@ int main(int argc, char *argv[])
 							f_check = 7;
 							continue;
 							}
-							else{f_check = 0;}
+							else
+								f_check = 0;
 						}
 						else if(f_check == 7)
 						{
@@ -174,16 +172,16 @@ int main(int argc, char *argv[])
 							f_found = 1;
 							continue;
 							}
-							else{f_check = 0;}
+							else
+								f_check = 0;
 						}
 					}
 					if(q_skip == 0 && f_found == 1 && ch == '}')
-					{
 						f_found = 0;
-					}
 				}
 			}
 		}
+		printf("%d\n", f_count);
 		fclose(filePointer);
 	}
 	else
