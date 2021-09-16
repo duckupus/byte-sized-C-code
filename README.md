@@ -1,1 +1,1 @@
-# function-finder
+Just some projects in C
