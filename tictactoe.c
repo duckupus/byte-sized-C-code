@@ -12,7 +12,6 @@ char init_board[3][3]={
 	{'7', '8', '9'}
 };
 void p_board()	{
-	//processor I got ya ;)
 	printf("%c|%c|%c", board[0][0], board[0][1], board[0][2]);
 	printf("\n=====\n");
 	printf("%c|%c|%c", board[1][0], board[1][1], board[1][2]);
@@ -81,7 +80,7 @@ void bot(char bott) {
 int main()	{
 	srand(getpid());
 	char player='0', opponent;
-	int ip=0, i;
+	int ip=0, i, same;
 	char w_condition='0';
 	system("clear");
 	while( player != 'X' && player != 'O') {
@@ -110,7 +109,9 @@ int main()	{
 		}
 		else
 			continue;
-		change_board(i, ip, player);
+		same=change_board(i, ip, player);
+		if(same==1)
+			continue;
 		bot(opponent);
 		w_condition=check();
 	}
