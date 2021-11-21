@@ -72,6 +72,8 @@ char check() {
 }
 
 void bot(char bott) {
+	if(check() != '0')
+		return;
 	int num, i=0, same;
 	//tries to randomise output
 	num=(rand() % 9 + 1);
