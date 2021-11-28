@@ -76,8 +76,7 @@ void bot(char bott) {
 		return;
 	int num, i=0, same;
 	//tries to randomise output
-	num=(rand() % 9 + 1);
-	num--;
+	num=(rand() % 9);
 	while(num > 3) {
 		num -= 3;
 		i++;
@@ -93,7 +92,6 @@ int main()	{
 	char player='0', opponent;
 	int ip=0, i, same;
 	char w_condition='0';
-	system("clear");
 	while( player != 'X' && player != 'O') {
 		printf("please select X or O\n");
 		printf("X/O> ");
