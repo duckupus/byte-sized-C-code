@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
 		}
 		printf("prime\t|\tamount\n");
 		for(int a=1; a<=size; a++)
-			printf("prime:%lld\t|\tnumber:%lld\n", pvar[0][a], pvar[1][a]);
+			printf("%lld\t|\t%lld\n", pvar[0][a], pvar[1][a]);
 		free(pvar[0]);
 		free(pvar[1]);
 	}
