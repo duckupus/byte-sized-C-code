@@ -3,8 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <getopt.h>
-
-char var=' ';
+char var;
 
 void help(void) {
 	puts("Usage:");
@@ -18,30 +17,30 @@ void help(void) {
 }
 
 void uppercaseconv(void) {
-	while(var != EOF) {
+	do {
 		var=getc(stdin);
 		if(var >= 'a' && var <= 'z')
 			printf("%c", var-32);
 		else
 			printf("%c", var);
-	}
+	} while(var != EOF);
 	fclose(stdin);
 }
 
 void lowercaseconv(void) {
-	while(var != EOF) {
+	do {
 		var=getc(stdin);
 		if(var >= 'A' && var <= 'Z')
 			printf("%c", var+32);
 		else
 			printf("%c", var);
-	}
+	} while(var != EOF); 
 	fclose(stdin);
 }
 
 void toggleconv(int toggle_at) {
 	int i=0;
-	while(var != EOF) {
+	do{
 		var=getc(stdin);
 		if(i == toggle_at){
 			/* checks range */
@@ -53,15 +52,16 @@ void toggleconv(int toggle_at) {
 			} else
 				printf("%c", var);
 			i=-1;
+			continue;
 		}
 		printf("%c", var);
 		i++;
-	}
+	} while(var != EOF);
 	fclose(stdin);
 }
 
 int main(int argc, char *argv[]) {
-	int i, opt=0, toggle;
+	int i, toggle;
 	static struct option long_options[] = {
 		{"help", no_argument, NULL, 'h'},
 		{"bigalp", no_argument, NULL, 'b'},
@@ -75,27 +75,16 @@ int main(int argc, char *argv[]) {
 				return 0;
 				break;
 			case 'b':
-				opt=0;
+				uppercaseconv();
 				break;
 			case 's':
-				opt=1;
+				lowercaseconv();
 				break;
 			case 't':
 				toggle = atoi(optarg);
-				opt = 2;
+				toggleconv(toggle);
 				break;
 		}
-	}
-	switch(opt) {
-		case 0:
-			uppercaseconv();
-			break;
-		case 1:
-			lowercaseconv();
-			break;
-		case 2:
-			toggleconv(toggle);
-			break;
 	}
 	return 0;
 }
